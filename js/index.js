@@ -1,5 +1,5 @@
-const loadFoodData=async()=>{
-    const url= `https://www.themealdb.com/api/json/v1/1/search.php?s=fish`
+const loadFoodData=async(searchText)=>{
+    const url= `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
     const res=await fetch(url)
     const data=await res.json()
     displayFoodData(data.meals)
@@ -8,6 +8,7 @@ const loadFoodData=async()=>{
 
 const displayFoodData=(foods)=>{
     const foodCardContainer=document.getElementById("card-container")
+    foodCardContainer.innerText=""
     for(const food of foods){
         const foodDiv=document.createElement("div")
         foodDiv.classList.add("food")
@@ -24,9 +25,18 @@ const displayFoodData=(foods)=>{
                 </div>
         `
         foodCardContainer.append(foodDiv)
-        console.log(food)
     }
 
 }
 
-loadFoodData()
+// search btn function
+document.getElementById("btn-search").addEventListener("click", function(){
+    const searchField= document.getElementById("search-field")
+    const searchText=searchField.value ;
+    loadFoodData(searchText)
+    console.log(searchText)
+})
+
+
+
+loadFoodData('')
