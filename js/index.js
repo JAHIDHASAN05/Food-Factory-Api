@@ -86,6 +86,25 @@ const toggleSpinner=(isLoading)=>{
 
 
 // modal detail button function starts
+const loadFoodDetail= async(id) => {
+    const url= `https:www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    const res= await fetch(url)
+    const data= await res.json()
+    displayFoodDetail(data.meals[0])
 
+    
+}
+
+const displayFoodDetail=(detail)=>{
+       const detailtitle= document.getElementById("detail-title")
+       detailtitle.innerText=`${detail.strMeal}`
+       const detailBody=document.getElementsByClassName("detail-body")[0]
+       detailBody.innerHTML=`
+       <img class="img-fluid px-3" src="${detail.strMealThumb}">
+       <p class="p-3 fs-6">${detail.strInstructions}</p>
+
+       `
+       console.log(detail)
+}
 
 loadFoodData('')
